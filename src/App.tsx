@@ -9,7 +9,6 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import RequireAuth from './layouts/RequireAuth';
-import signOut from './signout';
 import Hobbies from './pages/Hobbies';
 import Profile from './pages/Profile';
 
@@ -21,7 +20,6 @@ function App() {
         <Route path="auth">
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="signout" action={signOut} />
         </Route>
         <Route element={<RequireAuth />}>
           <Route path="hobbies">
