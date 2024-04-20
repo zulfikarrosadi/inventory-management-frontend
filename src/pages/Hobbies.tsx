@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import config from '../config';
+import useAxios from '../hooks/useAxios';
 
 type Hobbies = {
   id: number;
@@ -13,6 +14,7 @@ type Hobbies = {
 function Hobbies() {
   const [hobbies, setHobbies] = useState<Hobbies>();
   const [isLoading, setIsLoading] = useState(true);
+  const axios = useAxios();
 
   const handleJoin = async (event: FormEvent) => {
     event.preventDefault();
@@ -20,14 +22,12 @@ function Hobbies() {
     const joinButton = event.target?.joinBtn as HTMLButtonElement;
     joinButton.disabled = true;
     joinButton.textContent = 'Processing...';
-    const reqBody = JSON.stringify({ hobbyId: [parseInt(hobbyId, 10)] });
     try {
-      const res = await fetch(`${config.baseURL}/user/hobby`, {
-        body: reqBody,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-      });
+      const res = await axios.post(
+        '/user/hobby',
+        JSON.stringify({ hobbyId: [parseInt(hobbyId, 10)] }),
+        { headers: { 'Content-Type': 'application/json' } },
+      );
       if (res.status === 201) {
         joinButton.disabled = true;
         joinButton.textContent = 'Joined';
