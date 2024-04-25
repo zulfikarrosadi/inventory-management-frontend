@@ -40,7 +40,7 @@ function SignIn() {
       });
       const user = await res.json();
       if (!res.ok) {
-        throw new Error(user.errors[0].message);
+        throw new Error(user.errors.message);
       }
       console.log({ user });
       setAuth(user.data.user);
