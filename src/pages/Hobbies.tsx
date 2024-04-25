@@ -44,6 +44,9 @@ function Hobbies() {
             return (
               <li key={hobby.id}>
                 <div>
+                  <Link to={`/hobbies/${hobby.id}`}>
+                    <h3>{hobby.name}</h3>
+                  </Link>
                   <JoinHobbyButton hobby={hobby} />
                 </div>
                 <p>{hobby.description}</p>
