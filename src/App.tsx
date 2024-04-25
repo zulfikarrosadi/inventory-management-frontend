@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp';
 import RequireAuth from './layouts/RequireAuth';
 import Hobbies from './pages/Hobbies';
 import Profile from './pages/Profile';
+import Hobby from './pages/Hobby';
 
 function App() {
   const router = createBrowserRouter(
@@ -24,6 +25,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="hobbies">
             <Route index element={<Hobbies />} />
+            <Route path=":hobbyId" element={<Hobby />} />
           </Route>
           <Route path="me" element={<Profile />} />
         </Route>
