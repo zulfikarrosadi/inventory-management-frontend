@@ -1,6 +1,7 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import config from '../config';
-import useAxios from '../hooks/useAxios';
+import { Link } from 'react-router-dom';
+import JoinHobbyButton from '../components/JoinHobbyButton';
 
 type Hobbies = {
   id: number;
@@ -14,31 +15,6 @@ type Hobbies = {
 function Hobbies() {
   const [hobbies, setHobbies] = useState<Hobbies>();
   const [isLoading, setIsLoading] = useState(true);
-  const axios = useAxios();
-
-  const handleJoin = async (event: FormEvent) => {
-    event.preventDefault();
-    const hobbyId = event.target?.hobbyId.value;
-    const joinButton = event.target?.joinBtn as HTMLButtonElement;
-    joinButton.disabled = true;
-    joinButton.textContent = 'Processing...';
-    try {
-      const res = await axios.post(
-        '/user/hobby',
-        JSON.stringify({ hobbyId: [parseInt(hobbyId, 10)] }),
-        { headers: { 'Content-Type': 'application/json' } },
-      );
-      if (res.status === 201) {
-        joinButton.disabled = true;
-        joinButton.textContent = 'Joined';
-      } else {
-        joinButton.disabled = false;
-        joinButton.textContent = 'Join';
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -68,13 +44,7 @@ function Hobbies() {
             return (
               <li key={hobby.id}>
                 <div>
-                  <h3>{hobby.name}</h3>
-                  <form onSubmit={handleJoin}>
-                    <input type="hidden" id="hobbyId" value={hobby.id} />
-                    <button id="joinBtn" disabled={hobby.isJoined}>
-                      {hobby.isJoined ? 'Joined' : 'Join'}
-                    </button>
-                  </form>
+                  <JoinHobbyButton hobby={hobby} />
                 </div>
                 <p>{hobby.description}</p>
               </li>
