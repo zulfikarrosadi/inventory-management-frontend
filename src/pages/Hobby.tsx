@@ -25,8 +25,9 @@ type Hobby = {
 };
 
 type ApiResponse = {
-  status: 'success';
+  status: 'success' | 'fail';
   data: { hobby: Hobby };
+  errors: { code: number; message: string };
 };
 
 const CreatePostSchema = z.object({
@@ -40,13 +41,17 @@ function Hobby() {
   const { hobbyId } = useParams();
   const axios = useAxios();
   const { auth } = useAuth();
-  const { getHobby, hobby, isFetchingHobby, error } = useHobby(
-    parseInt(hobbyId!, 10),
-  );
+  const {
+    getHobby,
+    hobby,
+    error: hobbyError,
+    setError: setHobbyError,
+  } = useHobby(parseInt(hobbyId!, 10));
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading: isPosting },
+    reset,
+    formState: { errors, isSubmitting: isPosting },
   } = useForm<z.TypeOf<typeof CreatePostSchema>>({
     resolver: zodResolver(CreatePostSchema),
   });
@@ -60,8 +65,12 @@ function Hobby() {
         JSON.stringify(data),
         { headers: { 'Content-Type': 'application/json' } },
       );
-      console.log(res);
-      await getHobby();
+      if (res.status === 'success') {
+        await getHobby();
+        reset();
+      } else {
+        setHobbyError((prev) => (prev = res.errors.message));
+      }
     } catch (error) {
       console.log('create_post', error);
     }
@@ -73,8 +82,7 @@ function Hobby() {
 
   return (
     <>
-      {error && JSON.stringify(error)}
-      {!isFetchingHobby && hobby ? (
+      {hobby ? (
         <>
           <div>
             <div className="profile_picture">
@@ -94,11 +102,14 @@ function Hobby() {
                   {...register('content')}
                 />
                 <span>{errors.content && errors.content.message}</span>
+                <span>{hobbyError && hobbyError}</span>
                 <input
                   type="hidden"
                   {...register('hobbyId', { value: hobby.id })}
                 />
-                <button disabled={isPosting}>Create Post</button>
+                <button disabled={isPosting}>
+                  {!isPosting ? 'Create Post' : 'Creating...'}
+                </button>
               </form>
             )}
             <div>

@@ -24,8 +24,7 @@ type ApiResponse = {
 function useHobby(hobbyId: number) {
   const axios = useAxios();
   const [hobby, setHobby] = useState<Hobby>();
-  const [isFetchingHobby, setIsFetchingHobby] = useState(true);
-  const [error, setError] = useState();
+  const [error, setError] = useState<string>();
 
   async function getHobby() {
     try {
@@ -41,15 +40,13 @@ function useHobby(hobbyId: number) {
         isJoined: res.data.hobby.isJoined,
         posts: res.data.hobby.posts,
       }));
-
-      setIsFetchingHobby(false);
     } catch (error: any) {
       console.log(error);
       setError(error);
     }
   }
 
-  return { getHobby, hobby, isFetchingHobby, error, setError };
+  return { getHobby, hobby, error, setError };
 }
 
 export default useHobby;
