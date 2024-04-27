@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../hooks/useAxios';
 import { AxiosResponse } from 'axios';
@@ -6,7 +6,6 @@ import JoinHobbyButton from '../components/JoinHobbyButton';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import useHobby from '../hooks/useHobby';
 import useAuth from '../hooks/useAuth';
 import DeletePostButton from '../components/DeletePostButton';
 
@@ -42,12 +41,6 @@ function Hobby() {
   const axios = useAxios();
   const { auth } = useAuth();
   const {
-    getHobby,
-    hobby,
-    error: hobbyError,
-    setError: setHobbyError,
-  } = useHobby(parseInt(hobbyId!, 10));
-  const {
     register,
     handleSubmit,
     reset,
@@ -55,6 +48,28 @@ function Hobby() {
   } = useForm<z.TypeOf<typeof CreatePostSchema>>({
     resolver: zodResolver(CreatePostSchema),
   });
+  const [hobby, setHobby] = useState<Hobby>();
+  const [hobbyError, setHobbyError] = useState<string>();
+
+  async function getHobby() {
+    try {
+      const { data: res } = await axios.get<{}, AxiosResponse<ApiResponse>>(
+        `/hobbies/${hobbyId}`,
+      );
+      setHobby((prev) => ({
+        ...prev,
+        id: res.data.hobby.id,
+        image: res.data.hobby.image,
+        description: res.data.hobby.description,
+        name: res.data.hobby.name,
+        isJoined: res.data.hobby.isJoined,
+        posts: res.data.hobby.posts,
+      }));
+    } catch (error: any) {
+      console.log(error);
+      setHobbyError(error);
+    }
+  }
 
   const onSubmit: SubmitHandler<z.TypeOf<typeof CreatePostSchema>> = async (
     data,
@@ -131,7 +146,10 @@ function Hobby() {
                               {post.user.userProfileId ===
                               auth.userProfileId ? (
                                 <>
-                                  <DeletePostButton postId={post.id} />
+                                  <DeletePostButton
+                                    postId={post.id}
+                                    getHobby={getHobby}
+                                  />
                                   <button>Update</button>
                                 </>
                               ) : null}
