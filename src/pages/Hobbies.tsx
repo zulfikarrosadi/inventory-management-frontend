@@ -39,10 +39,10 @@ function Hobbies() {
   return (
     <>
       {!isLoading ? (
-        <ul>
+        <ul className="flex gap-4 m-auto flex-wrap">
           {hobbies?.map((hobby) => {
             return (
-              <li key={hobby.id}>
+              <li key={hobby.id} className="bg-gray-400 rounded-md w-1/2">
                 <div>
                   <Link to={`/hobbies/${hobby.id}`}>
                     <h3>{hobby.name}</h3>
