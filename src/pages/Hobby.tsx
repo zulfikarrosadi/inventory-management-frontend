@@ -6,8 +6,7 @@ import JoinHobbyButton from '../components/JoinHobbyButton';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import useAuth from '../hooks/useAuth';
-import DeletePostButton from '../components/DeletePostButton';
+import Post from '../components/Posts';
 
 type Hobby = {
   id: number;
@@ -39,7 +38,6 @@ const CreatePostSchema = z.object({
 function Hobby() {
   const { hobbyId } = useParams();
   const axios = useAxios();
-  const { auth } = useAuth();
   const {
     register,
     handleSubmit,
@@ -131,34 +129,11 @@ function Hobby() {
               {hobby.posts.length
                 ? hobby.posts.map((post) => {
                     return (
-                      <>
-                        <div>
-                          <div>
-                            <div>
-                              <h3>{post.user.username}</h3>
-                              <p>
-                                {new Date(
-                                  Date.parse(post.createdAt),
-                                ).toDateString()}
-                              </p>
-                            </div>
-                            <div>
-                              {post.user.userProfileId ===
-                              auth.userProfileId ? (
-                                <>
-                                  <DeletePostButton
-                                    postId={post.id}
-                                    getHobby={getHobby}
-                                  />
-                                  <button>Update</button>
-                                </>
-                              ) : null}
-                            </div>
-                          </div>
-                          <p>{post.content}</p>
-                          <hr />
-                        </div>
-                      </>
+                      <Post
+                        post={post}
+                        getHobby={getHobby}
+                        hobbyId={hobby.id}
+                      />
                     );
                   })
                 : 'No posts yet...'}
