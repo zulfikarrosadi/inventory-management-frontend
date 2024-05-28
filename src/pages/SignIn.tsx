@@ -9,9 +9,9 @@ import useAuth from '../hooks/useAuth';
 const signInSchema = z.object({
   email: z
     .string()
-    .email('please input valid email format')
+    .email('Please input valid email format')
     .transform((val) => val.toLowerCase()),
-  password: z.string().min(1, 'password is required'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 type User = z.TypeOf<typeof signInSchema>;
@@ -59,20 +59,22 @@ function SignIn() {
             Enter your details to continue
           </p>
         </div>
-        <div className="text-white text-base/10 bg-red-500 rounded-md p-2">
-          {requestError && JSON.stringify(requestError)}
-        </div>
+        {requestError && (
+          <div className="text-white text-base/10 bg-red-500 rounded-md p-2">
+            {JSON.stringify(requestError)}
+          </div>
+        )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <ul className="flex flex-col gap-4">
             <li className="flex flex-col gap-2">
-              <div>
+              <div className="flex flex-col gap-2">
                 <label htmlFor="email">Email</label>
                 <input
                   type="email"
                   id="email"
                   {...register('email')}
                   autoFocus
-                  className="border-gray-400"
+                  className="border border-gray-400 rounded-md outline outline-1 w-1/3"
                 />
               </div>
               <p className="text-sm text-red-500">
@@ -80,12 +82,13 @@ function SignIn() {
               </p>
             </li>
             <li className="flex flex-col gap-2">
-              <div>
+              <div className="flex flex-col gap-2">
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
                   id="password"
                   {...register('password')}
+                  className="w-1/3 border border-gray-400 rounded-md outline outline-1"
                 />
               </div>
               <p className="text-sm text-red-500">

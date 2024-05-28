@@ -6,30 +6,32 @@ function Root() {
   return (
     <>
       <header className="w-full flex border-b-4">
-        <nav className="w-10/12 m-auto">
+        <nav className="container mx-auto">
           <menu className="flex justify-between gap-4 h-10 text-base/10">
             {!auth.username ? (
               <>
-                <li>
-                  <NavLink
-                    to="/auth/signin"
-                    className="hover:font-bold transition-all"
-                  >
-                    Sign In
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/auth/signup"
-                    className="hover:font-bold transition-all"
-                  >
-                    Sign Up
-                  </NavLink>
-                </li>
+                <div className="flex gap-8">
+                  <li>
+                    <NavLink
+                      to="/auth/signin"
+                      className="hover:font-bold transition-all"
+                    >
+                      Sign In
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/auth/signup"
+                      className="hover:font-bold transition-all"
+                    >
+                      Sign Up
+                    </NavLink>
+                  </li>
+                </div>
               </>
             ) : (
               <>
-                <div className="flex gap-4">
+                <div className="flex gap-8">
                   <li className="hover:font-bold transition-all">
                     <NavLink to="/">Home</NavLink>
                   </li>
@@ -54,7 +56,7 @@ function Root() {
         </nav>
       </header>
       <main className="">
-        <div className="w-10/12 m-auto">
+        <div className="container mx-auto">
           <Outlet />
         </div>
       </main>

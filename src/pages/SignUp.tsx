@@ -56,31 +56,72 @@ function SignUp() {
 
   return (
     <>
-      {requestError && JSON.stringify({ requestError })}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          <span>Email: </span>
-          <input type="email" id="email" {...register('email')} />
-          {formErrors.email && <p>{formErrors.email.message}</p>}
-        </label>
-        <label>
-          <span>Password: </span>
-          <input type="password" id="password" {...register('password')} />
-          {formErrors.password && <p>{formErrors.password.message}</p>}
-        </label>
-        <label>
-          <span>Confirm your password: </span>
-          <input
-            type="password"
-            id="passwordConfirmation"
-            {...register('passwordConfirmation')}
-          />
-          {formErrors.passwordConfirmation && (
-            <p>{formErrors.passwordConfirmation.message}</p>
-          )}
-        </label>
-        <button>Sign Up</button>
-      </form>
+      <div className="flex flex-col gap-10 h-full mt-5">
+        <div className="space-y-2">
+          <h1 className="text-2xl">Sign Up</h1>
+          <p className="text-base text-gray-400">
+            And start tracking your stocks
+          </p>
+        </div>
+        {requestError && (
+          <div className="text-white text-base/10 bg-red-500 rounded-md p-2">
+            {JSON.stringify({ requestError })}
+          </div>
+        )}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <ul className="flex flex-col gap-4">
+            <li className="flex flex-col gap-2">
+              <label>Email:</label>
+              <input
+                type="email"
+                id="email"
+                {...register('email')}
+                className="w-1/3 border border-gray-400 rounded-md outline outline-1"
+              />
+              {formErrors.email && (
+                <p className="text-sm text-red-500">
+                  {formErrors.email.message}
+                </p>
+              )}
+            </li>
+            <li className="flex flex-col gap-2">
+              <label>Password:</label>
+              <input
+                type="password"
+                id="password"
+                {...register('password')}
+                className="w-1/3 border border-gray-400 rounded-md outline outline-1"
+              />
+              {formErrors.password && (
+                <p className="text-sm text-red-500">
+                  {formErrors.password.message}
+                </p>
+              )}
+            </li>
+            <li className="space-y-2">
+              <label className="flex flex-col gap-2">
+                Confirm your password:
+              </label>
+              <input
+                type="password"
+                id="passwordConfirmation"
+                {...register('passwordConfirmation')}
+                className="w-1/3 border border-gray-400 rounded-md outline outline-1"
+              />
+              {formErrors.passwordConfirmation && (
+                <p className="text-sm text-red-500">
+                  {formErrors.passwordConfirmation.message}
+                </p>
+              )}
+            </li>
+            <li>
+              <button className="bg-gray-400 p-2 w-1/5 text-white rounded-md">
+                Sign Up
+              </button>
+            </li>
+          </ul>
+        </form>
+      </div>
     </>
   );
 }
