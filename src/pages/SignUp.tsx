@@ -7,9 +7,7 @@ import { useState } from 'react';
 import useAuth from '../hooks/useAuth';
 
 export const signUpSchema = object({
-  email: string({ required_error: 'Email is required' })
-    .email('Your email format is invalid')
-    .transform((val) => val.toLowerCase()),
+  username: string({ required_error: 'Username is required' }),
   password: string({ required_error: 'Password is required' }).min(
     8,
     'Password should have minimun 8 characters ',
@@ -71,16 +69,16 @@ function SignUp() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <ul className="flex flex-col gap-4">
             <li className="flex flex-col gap-2">
-              <label>Email:</label>
+              <label>Username:</label>
               <input
-                type="email"
+                type="text"
                 id="email"
-                {...register('email')}
-                className="w-1/3 border border-gray-400 rounded-md outline outline-1"
+                {...register('username')}
+                className="md:w-1/4 w-1/2 border border-gray-400 rounded-md outline outline-1"
               />
-              {formErrors.email && (
+              {formErrors.username && (
                 <p className="text-sm text-red-500">
-                  {formErrors.email.message}
+                  {formErrors.username.message}
                 </p>
               )}
             </li>
