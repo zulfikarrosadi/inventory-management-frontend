@@ -36,10 +36,7 @@ function Root() {
                     <NavLink to="/">Home</NavLink>
                   </li>
                   <li className="hover:font-bold transition-all">
-                    <NavLink to="/hobbies">Hobbies</NavLink>
-                  </li>
-                  <li className="hover:font-bold transition-all">
-                    <NavLink to="/me">Profile</NavLink>
+                    <NavLink to="/warehouse">Warehouse</NavLink>
                   </li>
                   <li className="hover:font-bold transition-all">
                     <NavLink to="/auth/signout">Log Out</NavLink>
