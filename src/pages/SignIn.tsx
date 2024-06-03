@@ -7,10 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 const signInSchema = z.object({
-  email: z
-    .string()
-    .email('Please input valid email format')
-    .transform((val) => val.toLowerCase()),
+  username: z.string({ required_error: 'Username is required' }),
   password: z.string().min(1, 'Password is required'),
 });
 
@@ -68,17 +65,17 @@ function SignIn() {
           <ul className="flex flex-col gap-4">
             <li className="flex flex-col gap-2">
               <div className="flex flex-col gap-2">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="username">Username</label>
                 <input
-                  type="email"
-                  id="email"
-                  {...register('email')}
+                  type="username"
+                  id="username"
+                  {...register('username')}
                   autoFocus
                   className="border border-gray-400 rounded-md outline outline-1 w-1/3"
                 />
               </div>
               <p className="text-sm text-red-500">
-                {errors.email && errors.email.message}
+                {errors.username && errors.username.message}
               </p>
             </li>
             <li className="flex flex-col gap-2">
