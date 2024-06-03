@@ -88,7 +88,7 @@ function SignUp() {
                 type="password"
                 id="password"
                 {...register('password')}
-                className="w-1/3 border border-gray-400 rounded-md outline outline-1"
+                className="md:w-1/4 w-1/2 border border-gray-400 rounded-md outline outline-1"
               />
               {formErrors.password && (
                 <p className="text-sm text-red-500">
@@ -104,7 +104,7 @@ function SignUp() {
                 type="password"
                 id="passwordConfirmation"
                 {...register('passwordConfirmation')}
-                className="w-1/3 border border-gray-400 rounded-md outline outline-1"
+                className="md:w-1/4 w-1/2 border border-gray-400 rounded-md outline outline-1"
               />
               {formErrors.passwordConfirmation && (
                 <p className="text-sm text-red-500">
