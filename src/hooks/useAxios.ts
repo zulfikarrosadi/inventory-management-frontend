@@ -11,7 +11,12 @@ function useAxios() {
         return config;
       },
       async function (error) {
-        if (error.response && error.response.status === 401) {
+        if (
+          error.response &&
+          error.response.status === 401 &&
+          !error.config.sent
+        ) {
+          error.config.sent = true;
           try {
             await refresh();
             return axios.request(error.config);
