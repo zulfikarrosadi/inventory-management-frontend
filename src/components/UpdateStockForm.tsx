@@ -262,7 +262,7 @@ function UpdateStockForm({
               disabled={isSubmitting}
               className="bg-gray-400 p-2 w-1/5 text-white rounded-md"
             >
-              Submit
+              Update
             </button>
           </li>
         </ul>
