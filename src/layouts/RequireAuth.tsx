@@ -6,7 +6,7 @@ function RequireAuth() {
   const { auth } = useAuth();
   console.log(auth);
 
-  if (!auth.userProfileId) {
+  if (!auth.id) {
     return <Navigate to="/auth/signin" state={{ from: location }} replace />;
   }
 
