@@ -1,30 +1,59 @@
-# React + TypeScript + Vite
+# Inventory Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a web-based inventory management system that allows users to manage and track stock levels, orders, and suppliers efficiently.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend Framework**: [React](https://reactjs.org/)
+- **Type Checking**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Schema Validation**: [Zod](https://github.com/colinhacks/zod)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Add, update, and delete products
+- Manage suppliers and product categories
+- Real-time search and filter for products
+- Create inventory report
+- Responsive design
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/inventory-management-system.git
+    cd inventory-management-system
+    ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+3. **Run the application**:
+    ```bash
+    npm run dev
+    ```
+
+    This will start the application on `http://localhost:3000`.
+
+## Custom Scripts
+
+- **`npm run dev`**: Start the development server.
+- **`npm run build`**: Create a production build.
+- **`npm run lint`**: Lint the project using ESLint.
+- **`npm run format`**: Format code using Prettier.
+
+## Code Style
+
+- **TypeScript** is used for type checking.
+- **ESLint** and **Prettier** are set up for linting and formatting, respectively.
+- **Zod** is used for validation to ensure type safety during form handling.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch for your feature.
+3. Submit a pull request with a clear description of your changes.
+
+Happy coding! 🚀
